@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.mckesson.kafka.connect</groupId>
+		<artifactId>kafka-connect-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>netty-source</artifactId>
+
+	<properties>
+		<connect.component.name>netty-source</connect.component.name>
+		<connect.component.componentTypes>source</connect.component.componentTypes>
+		<connect.component.title>Netty Source Connector</connect.component.title>
+		<connect.component.description>This connector allows Kafka Connect to receive data from network. Connector implemented on top of netty.io (3.x).</connect.component.description>
+		<connect.component.documentation.url>https://github.com/vrudenskyi/kafka-connect-netty-source/wiki</connect.component.documentation.url>
+		<connect.component.source.url>https://github.com/vrudenskyi/kafka-connect-netty-source</connect.component.source.url>
+		<connect.component.support.url>https://github.com/vrudenskyi/kafka-connect-netty-source/issues</connect.component.support.url>
+		<connect.component.tags>network,syslog,http,log,netty</connect.component.tags>
+	</properties>
+
+
+
+	<dependencies>
+		<!-- parent managed deps -->
+		<dependency>
+			<groupId>com.mckesson.kafka.connect</groupId>
+			<artifactId>kafka-connect-common</artifactId>
+		</dependency>
+
+		<!-- project specific deps -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.10.6.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+	</dependencies>
+	
+	
+	<distributionManagement>
+			<repository>
+				<id>bintray-vrudenskyi</id>
+				<name>Bintray vrudenskyi kafka-connect</name>
+				<url>https://api.bintray.com/maven/vrudenskyi/kafka-connect/kafka-connect-netty-source/;publish=1</url>
+			</repository>
+	</distributionManagement>
+
+
+</project>
