@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.util.Collections;
 import java.util.Map;
@@ -24,7 +24,7 @@ import org.apache.kafka.common.config.ConfigDef.Importance;
 import org.apache.kafka.common.config.ConfigDef.Type;
 import org.apache.kafka.common.config.ConfigDef.Width;
 
-import com.mckesson.kafka.connect.utils.QueueBatchConfig;
+import com.vrudensk.kafka.connect.utils.QueueBatchConfig;
 
 public class NettySourceConnectorConfig extends AbstractConfig {
 

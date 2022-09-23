@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.mckesson.kafka.connect</groupId>
+		<groupId>com.vrudenskyi.kafka.connect</groupId>
 		<artifactId>kafka-connect-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
@@ -28,7 +28,7 @@
 	<dependencies>
 		<!-- parent managed deps -->
 		<dependency>
-			<groupId>com.mckesson.kafka.connect</groupId>
+			<groupId>com.vrudenskyi.kafka.connect</groupId>
 			<artifactId>kafka-connect-common</artifactId>
 		</dependency>
 

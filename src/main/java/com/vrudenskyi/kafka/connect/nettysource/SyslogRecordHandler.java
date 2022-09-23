@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.net.SocketAddress;
 import java.util.Collections;
@@ -45,14 +45,14 @@ public class SyslogRecordHandler extends SourceRecordHandler {
   public static final String HOSTNAME = "hostname";
   public static final String TRANSPORT_PROTOCOL = "transportProtocol";
 
-  static final Schema KEY_SCHEMA = SchemaBuilder.struct().name("com.mckesson.kafka.connect.syslog.SyslogKey")
+  static final Schema KEY_SCHEMA = SchemaBuilder.struct().name("com.vrudenskyi.kafka.connect.syslog.SyslogKey")
       .doc("This schema represents the key that is written to Kafka for syslog data. This will ensure that all data for " +
           "a host ends up in the same partition.")
       .field(
           REMOTE_ADDRESS,
           SchemaBuilder.string().doc("The ip address of the host that sent the syslog message.").build())
       .build();
-  static final Schema VALUE_SCHEMA = SchemaBuilder.struct().name("com.mckesson.kafka.connect.syslog.SyslogValue")
+  static final Schema VALUE_SCHEMA = SchemaBuilder.struct().name("com.vrudenskyi.kafka.connect.syslog.SyslogValue")
       .doc("This schema represents a syslog message that is written to Kafka.")
       .field(
           DATE,

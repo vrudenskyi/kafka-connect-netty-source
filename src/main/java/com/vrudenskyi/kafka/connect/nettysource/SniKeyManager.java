@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.net.Socket;
 import java.security.Principal;

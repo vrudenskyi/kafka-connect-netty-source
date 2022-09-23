@@ -8,7 +8,7 @@ The Source Connector will receive data from network  and write to kafka a topic.
 ```properties
 name=nettyConnector
 tasks.max=1
-connector.class=com.mckesson.kafka.connect.nettysource.NettySourceConnector
+connector.class=com.vrudenskyi.kafka.connect.nettysource.NettySourceConnector
 topic=network_data
 
 # Set these required values
@@ -20,7 +20,7 @@ port=1234
 |bind.address|Bind address|string|0.0.0.0|high|
 | transport.protocol| Transport level protocol | string | tcp| high | allowed values: **tcp**,**udp**
 |port| Listening port| int| | high|
-|pipeline.factory.class| Class name implementing `org.jboss.netty.channel.ChannelPipelineFactory` | class | depends on protocol| high|for tcp: `com.mckesson.kafka.connect.nettysource.DefaultTcpPipelineFactory`, for udp: `com.mckesson.kafka.connect.nettysource.DefaultUdpPipelineFactory`. See below configuration options for the factories
+|pipeline.factory.class| Class name implementing `org.jboss.netty.channel.ChannelPipelineFactory` | class | depends on protocol| high|for tcp: `com.vrudenskyi.kafka.connect.nettysource.DefaultTcpPipelineFactory`, for udp: `com.vrudenskyi.kafka.connect.nettysource.DefaultUdpPipelineFactory`. See below configuration options for the factories
 |ports| Listening ports| list||medium| same as '`port`' but multiply ports can be specified, used if port is already in use
 |healthcheck.enabled| Enable healthcheck listener| boolean| false| medium| Enable listening tcp port for healthcheck purpose. Useful when `transport.protocol=udp`  and loadbalancer configured in front of kafka connect.
 |healthcheck.bind.address| Bind address for healthcheck| string | 0.0.0.0| medium |
@@ -63,16 +63,16 @@ pipeline.factory.handlers.myhandler.option1=2
 
 ### DefaultTcpPipelineFactory
 
-> class  `com.mckesson.kafka.connect.nettysource.DefaultTcpPipelineFactory`
+> class  `com.vrudenskyi.kafka.connect.nettysource.DefaultTcpPipelineFactory`
 >
 
 #### handlers list
 | Name| Class | Description
 |--|--|--
 |nodataTimeout| `org.jboss.netty.handler.timeout.ReadTimeoutHandler`| Raises a `ReadTimeoutException` when no data was read within a certain
-|framer|`com.mckesson.kafka.connect.nettysource.DelimeterOrMaxLengthFrameDecoder`
+|framer|`com.vrudenskyi.kafka.connect.nettysource.DelimeterOrMaxLengthFrameDecoder`
 |decoder|`org.jboss.netty.handler.codec.string.StringDecoder`
-|recordHandler| `com.mckesson.kafka.connect.nettysource.StringRecordHandler`| produces SourceRecord
+|recordHandler| `com.vrudenskyi.kafka.connect.nettysource.StringRecordHandler`| produces SourceRecord
 
 
 ####  Configuration options:
@@ -87,29 +87,29 @@ pipeline.factory.handlers.myhandler.option1=2
 
 
 ### DefaultUdpPipelineFactory
-> class  `com.mckesson.kafka.connect.nettysource.DefaultUdpPipelineFactory`
+> class  `com.vrudenskyi.kafka.connect.nettysource.DefaultUdpPipelineFactory`
 >
 #### handlers list
 | Name| Class | Description
 |--|--|--
-|framer|`com.mckesson.kafka.connect.nettysource.SinglePacketHandler`| each datagram is a message
+|framer|`com.vrudenskyi.kafka.connect.nettysource.SinglePacketHandler`| each datagram is a message
 |decoder|`org.jboss.netty.handler.codec.string.StringDecoder`
-|recordHandler| `com.mckesson.kafka.connect.nettysource.StringRecordHandler`| produces SourceRecord
+|recordHandler| `com.vrudenskyi.kafka.connect.nettysource.StringRecordHandler`| produces SourceRecord
 
 ### HttpPipelineFactory
-> class  `com.mckesson.kafka.connect.nettysource.HttpPipelineFactory`
+> class  `com.vrudenskyi.kafka.connect.nettysource.HttpPipelineFactory`
 
 For handling http requests
 
 ### SyslogPipelineFactory
->class  `com.mckesson.kafka.connect.nettysource.SyslogPipelineFactory`
+>class  `com.vrudenskyi.kafka.connect.nettysource.SyslogPipelineFactory`
 
 To handle syslog messages. Produces structured record.
 
 ## Config examples
 #### Simple TCP syslog/netcat connector
 ```properties
-connector.class=com.mckesson.kafka.connect.nettysource.NettySourceConnector
+connector.class=com.vrudenskyi.kafka.connect.nettysource.NettySourceConnector
 tasks.max=1
 topic=tcp_input
 transport.protocol=tcp
@@ -117,7 +117,7 @@ port=1234
 ```
 #### Simple UDP with healthcheck enabled
 ```properties
-connector.class=com.mckesson.kafka.connect.nettysource.NettySourceConnector
+connector.class=com.vrudenskyi.kafka.connect.nettysource.NettySourceConnector
 topic=udp_input
 transport.protocol=udp
 ports=1234
@@ -127,7 +127,7 @@ healthcheck.ports=1234
 
 #### Http input connector with enabled SSL and custom 'recordHandler'
 ```properties
-connector.class=com.mckesson.kafka.connect.nettysource.NettySourceConnector
+connector.class=com.vrudenskyi.kafka.connect.nettysource.NettySourceConnector
 tasks.max=1
 topic=http_input
 ports=8080
@@ -139,8 +139,8 @@ ssl.keystore.password=changeit
 ssl.key.password=changeit
 ssl.key.alias=mykey
 
-pipeline.factory.class=com.mckesson.kafka.connect.nettysource.HttpPipelineFactory
+pipeline.factory.class=com.vrudenskyi.kafka.connect.nettysource.HttpPipelineFactory
 pipeline.factory.handlers=recordHandler
-pipeline.factory.handlers.recordHandler.class=com.mckesson.kafka.connect.nettysource.HttpRequestContentRecordHandler
+pipeline.factory.handlers.recordHandler.class=com.vrudenskyi.kafka.connect.nettysource.HttpRequestContentRecordHandler
 
 ```

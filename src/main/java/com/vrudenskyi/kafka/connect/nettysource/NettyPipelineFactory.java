@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -43,7 +43,7 @@ import org.jboss.netty.handler.ssl.SslHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mckesson.kafka.connect.utils.SslUtils;
+import com.vrudensk.kafka.connect.utils.SslUtils;
 
 public abstract class NettyPipelineFactory implements ChannelPipelineFactory, Configurable, Closeable {
 

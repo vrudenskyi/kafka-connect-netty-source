@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource.utils;
+package com.vrudenskyi.kafka.connect.nettysource.utils;
 
 import java.beans.PropertyDescriptor;
 import java.nio.charset.Charset;

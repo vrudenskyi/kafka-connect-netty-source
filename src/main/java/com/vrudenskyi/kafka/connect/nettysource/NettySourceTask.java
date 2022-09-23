@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -49,8 +49,8 @@ import org.jboss.netty.handler.logging.LoggingHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mckesson.kafka.connect.nettysource.utils.Version;
-import com.mckesson.kafka.connect.utils.QueueBatchConfig;
+import com.vrudensk.kafka.connect.utils.QueueBatchConfig;
+import com.vrudenskyi.kafka.connect.nettysource.utils.Version;
 
 public abstract class NettySourceTask extends SourceTask {
 

@@ -13,47 +13,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
-import org.jboss.netty.bootstrap.ServerBootstrap;
+import org.jboss.netty.bootstrap.ConnectionlessBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jboss.netty.channel.FixedReceiveBufferSizePredictorFactory;
+import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory;
+import org.jboss.netty.channel.socket.nio.NioDatagramWorkerPool;
 
-public class TcpSourceTask extends NettySourceTask {
+public class UdpSourceTask extends NettySourceTask {
 
-  private static final Logger log = LoggerFactory.getLogger(TcpSourceTask.class);
+  public static final String UPD_OPTIONS = "transport.protocol.udp.";
 
   @Override
   protected ChannelFactory createWorkerChannelFactory(int workingThreads) {
-
-    return new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool(),
-        workingThreads);
+    NioDatagramWorkerPool workerPool = new NioDatagramWorkerPool(Executors.newCachedThreadPool(), workingThreads);
+    return new NioDatagramChannelFactory(workerPool);
   }
 
   @Override
   protected Channel createWorkerChannel(InetAddress bindAddress, List<Integer> ports, ChannelFactory chFactory, ChannelPipelineFactory pipelineFactory) {
-    InetSocketAddress addr = selectTcpSocketAddress(bindAddress, ports);
-    ServerBootstrap bootstrap = new ServerBootstrap(chFactory);
-     
+    InetSocketAddress addr = selectUdpSocketAddress(bindAddress, ports);
+    ConnectionlessBootstrap bootstrap = new ConnectionlessBootstrap(chFactory);
+
+    bootstrap.setOption("receiveBufferSize", 2048);
+
+    Map<String, Object> options = this.connConfig.originalsWithPrefix(UPD_OPTIONS);
+    if (options != null && options.size() > 0) {
+      bootstrap.setOptions(options);
+    }
+    //set default
+    bootstrap.setOption("receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory(Integer.valueOf(bootstrap.getOption("receiveBufferSize").toString())));
+
     bootstrap.setPipelineFactory(pipelineFactory);
     // Bind and start to accept incoming connections.
     Channel ch = bootstrap.bind(addr);
-    
-    log.debug("started listening  on: {}", addr);
     return ch;
   }
 
   @Override
   protected Class<? extends ChannelPipelineFactory> getDefaultPipelineClass() {
-    return DefaultTcpPipelineFactory.class;
+    return DefaultUdpPipelineFactory.class;
   }
 }

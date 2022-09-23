@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mckesson.kafka.connect.nettysource;
+package com.vrudenskyi.kafka.connect.nettysource;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ import org.apache.kafka.connect.source.SourceConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mckesson.kafka.connect.nettysource.utils.Version;
+import com.vrudenskyi.kafka.connect.nettysource.utils.Version;
 
 public class NettySourceConnector extends SourceConnector {
   private static final Logger log = LoggerFactory.getLogger(NettySourceConnector.class);
